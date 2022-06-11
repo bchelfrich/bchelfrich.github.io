@@ -625,4 +625,11 @@ section {
   font-weight: 800;
   font-size: 6.3rem;
 }
+
+.subtitle h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
 /*# sourceMappingURL=post-style.css.map */
