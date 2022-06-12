@@ -33,9 +33,50 @@
                     different than other Linux malware given its approach to infecting running processes, rather using stand-alone executable files 
                     to inflict damage. It then harvests credentials to provide remote access for the attacker, exfiltrating the credentials as well 
                     as storing them locally. <br /> <br />
-                    Joakim Kenneedy, a security researcher at Intezer and the author of the BlackBerry blog post exaplains the Symbiote a little more:
+                    Joakim Kennedy, a security researcher at Intezer and the author of the BlackBerry blog post exaplains the Symbiote a little more:
                     "It operates as a rootkit and hides its presence on the machine. Once it has infected the machine fully, it allows you to see only 
                     what it wants you to see. Essentially, you can't trust what the machine is telling you." <br /> <br />
+                    Kennedy states, however, that Symbiote can be detected externally since it exfiltrates stolen credentials via DNS requests. 
+                </p>
+                <div class="subtitle">
+                    <h2>How Does It Stay Hidden?</h2>
+                </div>
+                <p>
+                    Along with making itself basically invisible, the goal of Symbiote is to open backdoor access to the infected machine and harvest 
+                    credentials. It does so by hooking a variety of functions and hijacking data. The credentials are stored locally before behing hex 
+                    encoded, chunked up, and transmitted disguised as a DNS request. <br /> <br />
+                    BlackBerry and Intezer detailed quite a few methods for how Symbiote hides itself:
+                </p>
+                <ul>
+                    <li>It removes certain named entries from lists of running processes.</li>
+                    <li>It removes itself from lists of SO dependencies in LDD.</li>
+                    <li>It hides certain named files from directories.</li>
+                    <li>It intercepts and drops TCP and UDP packets.</li>
+                    <li>It blocks certain traffic on certain ports.</li>
+                </ul>
+                <p>
+                    All of these methods are contextual, meaning when certain conditions are met, Symbiote takes different actions to ensure it remains 
+                    undetected.
+                </p>
+                <div class="subtitle">
+                    <h2>How Is It Used?</h2>
+                </div>
+                <p>
+                    Nicole Hoffman, a senior cyber threat intelligence analyst at Digital Shadows, points out that Symbiote is a shared object library, 
+                    instead of an executable file like most malware variants. It uses the LD_PRELOAD variable that allows it to be pre-loaded by applications 
+                    before other shared object libraries. <br /> <br />
+                    "This is a sophisticated and evasive technique that can help the malware blend in with legitimate running processes and applications, 
+                    which is one of the reasons Symbiote is difficult to detect," Hoffman says. <br /> <br />
+                    Symbiote also has BPF (Berkeley Packet Filter) hooking functionality. Packet capture tools typically intercept, or capture, network traffic 
+                    for the purposes of an investigation. BPF is a tool used in several Linux operating systems for programs that need to analyze network traffic. 
+                    It provided a raw interface to data link layers, permitting raw link-layer packets to be sent and received (Wikipedia). BPF allows users to 
+                    filter out certain packets, depending on their investigation, which can reduce overall results, making analysis easier. <br /> <br />
+                    "The Symbiote malware is designed to essentially filter its traffic out of the packet capture results," Hoffman explains. "This is just another 
+                    layer of stealth used by the attackers to cover their tracks and fly under the radar." <br /> <br />
+                    Kennedy adds to Hoffman's statements by pointing out that this is the first time the BPF functionality has been observed behaving in this way.
+                    Other malware variants have typically used BPF to receive commands from their command-and-control server. <br /> <br />
+                    "This malware instead uses this method to hide network activity," he says. "It's an active measure used by the malware to prevent being detected 
+                    if someone investigates the infected machine — like covering up its footsteps so it's harder to track down.”
                 </p>
                 <div class="btn-con">
                     <a href="index.html" target="_blank" class="main-btn">
